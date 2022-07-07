@@ -1,0 +1,10 @@
+.btn-success {
+    color: aquamarine;
+    background-color: black;
+}
+
+.btn:hover {
+    background-color: coral;
+    animation: tada;
+    animation-duration: 2s;
+}

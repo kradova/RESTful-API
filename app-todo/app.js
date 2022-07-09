@@ -40,7 +40,7 @@ function addToList(item) {
     } else {
         newTodo = newTodo.replace("{isdone}", "");
     }
-    console.log(newTodo);
+    //console.log(newTodo);
     list.append(newTodo);
 }// addToList
 
@@ -52,3 +52,21 @@ function changeIsDone(itemID) {
 
 }
 
+$(".form-check-input").on("change", (event) => {
+    let element = event.target;
+    let itemID = $(element).data("id");
+
+    todos.forEach(item => {
+        if (itemID == item.id) {
+            if (item.isDone === "true") {
+                item.isDone = "false";
+            } else {
+                item.isDone = "true";
+            }
+        }
+    });
+
+
+
+    console.log(todos);
+});

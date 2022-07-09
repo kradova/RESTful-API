@@ -17,7 +17,7 @@
     <div id="main" class="container">
         <div class="wrapper col-md-6">
             <h1>APP TODO</h1>
-            <form class="row g-3" action="http://localhost:3000/todos" method="post">
+            <form class="row g-3" action="" method="get">
                 <div class="col-4">
                     <input type="text" name="title" class="form-control" id="add_todo" placeholder="Add New TODO">
                 </div>
@@ -38,7 +38,7 @@
     <template id="item-template">
         <div class="item row g-3">
             <div class="col-4">
-                <input class="form-check-input" type="checkbox" value="" data-id="{id}">
+                <input class="form-check-input" type="checkbox" value="" data-id="{id}" {isdone}>
                 {title}
             </div>
             <div class="col-3">

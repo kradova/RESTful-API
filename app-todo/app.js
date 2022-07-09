@@ -2,17 +2,17 @@ const DB = `[
     {
         "id": 1,
         "title": "ToDo1",
-        "isDone": false
+        "isDone": "false"
     },
     {
         "id": 2,
         "title": "ToDo2",
-        "isDone": false
+        "isDone": "false"
     },
     {
         "id": 3,
         "title": "ToDo3",
-        "isDone": false
+        "isDone": "false"
     }
 ]`;
 

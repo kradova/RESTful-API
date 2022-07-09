@@ -62,6 +62,7 @@ $(".form-check-input").on("change", (event) => {
                 item.isDone = "false";
             } else {
                 item.isDone = "true";
+                //$(element).parrent.css('text-decoration', 'line-through');
             }
         }
     });

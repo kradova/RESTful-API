@@ -2,7 +2,7 @@ const DB = `[
     {
         "id": 1,
         "title": "ToDo1",
-        "isDone": "false"
+        "isDone": "true"
     },
     {
         "id": 2,
@@ -35,7 +35,12 @@ function addToList(item) {
     let list = $("#list");
     let newTodo = $("#item-template").html();
     newTodo = newTodo.replace(/\{id\}/g, item.id).replace("{title}", item.title);
-    console.log(newTodo);
+    if (item.isDone === "true") {
+        newTodo = newTodo.replace("{isdone}", "checked");
+    } else {
+        newTodo = newTodo.replace("{isdone}", "");
+    }
+    //console.log(newTodo);
     list.append(newTodo);
 }// addToList
 
@@ -47,3 +52,22 @@ function changeIsDone(itemID) {
 
 }
 
+$(".form-check-input").on("change", (event) => {
+    let element = event.target;
+    let itemID = $(element).data("id");
+
+    todos.forEach(item => {
+        if (itemID == item.id) {
+            if (item.isDone === "true") {
+                item.isDone = "false";
+            } else {
+                item.isDone = "true";
+                //$(element).parrent.css('text-decoration', 'line-through');
+            }
+        }
+    });
+
+
+
+    console.log(todos);
+});

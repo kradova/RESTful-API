@@ -26,7 +26,7 @@ function handler(request, response) {
     else if (request.url == "/json") {
         const data = {
             a: 1,
-            b: 'test', 
+            b: 'test',
             c: [1, 2, 3]
         };
         response.write(JSON.stringify(data));

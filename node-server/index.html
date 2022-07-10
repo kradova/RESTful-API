@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Node Server Test</title>
+</head>
+
+<body>
+    <script>
+        sendUser();
+        async function sendUser(user) {
+            const response = await fetch("/user", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: "Tom",
+                    age: 37
+                })
+            });
+            const responseText = await response.text();
+            console.log(responseText);
+        }
+    </script>
+</body>
+
+</html>

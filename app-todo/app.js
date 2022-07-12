@@ -19,11 +19,48 @@ const DB = `[
 let todos = getData();
 //console.log(todos);
 
+showTodosInScreen();
 
-todos.forEach(item => {
-    addToList(item);
+/** Change isDone
+*=================*/
+$(".form-check-input").on("change", (event) => {
+    let element = event.target;
+    let itemID = $(element).data("id");
+
+    todos.forEach(item => {
+        if (itemID == item.id) {
+            if (item.isDone === "true") {
+                item.isDone = "false";
+            } else {
+                item.isDone = "true";
+                //$(element).parrent.css('text-decoration', 'line-through');
+            }
+        }
+    });
+    console.log(todos);
+});// Change isDone
+
+/** Delete ToDo
+ *==============*/
+$(".js-btn-delete").on("click", (event) => {
+    let element = event.target;
+    let itemID = $(element).data("delete-id");
+    console.log(itemID);
 });
 
+
+
+
+//Delete ToDo
+
+
+
+function showTodosInScreen() {
+    //@TODO ??????????
+    todos.forEach(item => {
+        addToList(item);
+    });
+}
 
 
 function getData() {
@@ -48,26 +85,10 @@ function deleteItem(itemID) {
 
 }
 
-function changeIsDone(itemID) {
-
-}
-
-$(".form-check-input").on("change", (event) => {
-    let element = event.target;
-    let itemID = $(element).data("id");
-
-    todos.forEach(item => {
-        if (itemID == item.id) {
-            if (item.isDone === "true") {
-                item.isDone = "false";
-            } else {
-                item.isDone = "true";
-                //$(element).parrent.css('text-decoration', 'line-through');
-            }
-        }
-    });
 
 
 
-    console.log(todos);
-});
+
+
+
+

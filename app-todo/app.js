@@ -42,21 +42,25 @@ $(".form-check-input").on("change", (event) => {
 
 /** Delete ToDo
  *==============*/
-$(".js-btn-delete").on("click", (event) => {
+$("#list .js-btn-delete").on("click", (event) => {
     let element = event.target;
     let itemID = $(element).data("delete-id");
-    console.log(itemID);
-});
-
-
-
-
-//Delete ToDo
+    let idToDelete = -1;
+    for (let i = 0; i < todos.length; i++) {
+        const el = todos[i];
+        if (el.id == itemID) {
+            idToDelete = i;
+            break; 
+        }
+    }
+    delete todos[idToDelete];
+    showTodos();
+});// Delete ToDo
 
 
 
 function showTodos() {
-    //@TODO ??????????
+    $("#list").html("");
     todos.forEach(item => {
         addToList(item);
     });

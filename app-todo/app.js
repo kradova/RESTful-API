@@ -19,7 +19,7 @@ const DB = `[
 let todos = getData();
 //console.log(todos);
 
-showTodosInScreen();
+showTodos();
 
 /** Change isDone
 *=================*/
@@ -55,7 +55,7 @@ $(".js-btn-delete").on("click", (event) => {
 
 
 
-function showTodosInScreen() {
+function showTodos() {
     //@TODO ??????????
     todos.forEach(item => {
         addToList(item);

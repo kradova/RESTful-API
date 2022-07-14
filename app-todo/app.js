@@ -42,7 +42,6 @@ $(".form-check-input").on("change", (event) => {
 
 /** Delete ToDo
  *==============*/
-//@TODO fix delete
 $("#list").on("click", ".js-btn-delete", (event) => {
     let element = event.target;
     let itemID = $(element).data("delete-id");
@@ -62,7 +61,7 @@ $("#list").on("click", ".js-btn-delete", (event) => {
 function renameTodosKeys(todos) {
     let temp = [];
     let i = 0;
-    todos.forEach( todo => {
+    todos.forEach(todo => {
         temp[i] = todo;
         i++;
     });
@@ -95,10 +94,20 @@ function addToList(item) {
     list.append(newTodo);
 }// addToList
 
-function deleteItem(itemID) {
-
-}
-
+$("#form").on("submit", (event) => {
+    event.preventDefault();
+    let data = $("#form").serializeArray();
+    console.log(data);
+    const id = 0;
+    const title = data[0].value;
+    const isDone = data[1].value;
+    let newTodo = {
+        id,
+        title,
+        isDone
+    }
+    console.log(newTodo);
+});
 
 
 

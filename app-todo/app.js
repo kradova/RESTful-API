@@ -37,12 +37,13 @@ $(".form-check-input").on("change", (event) => {
             }
         }
     });
-    console.log(todos);
+    //console.log(todos);
 });// Change isDone
 
 /** Delete ToDo
  *==============*/
-$("#list .js-btn-delete").on("click", (event) => {
+//@TODO fix delete
+$("#list").on("click", ".js-btn-delete", (event) => {
     let element = event.target;
     let itemID = $(element).data("delete-id");
     let idToDelete = -1;
@@ -50,14 +51,23 @@ $("#list .js-btn-delete").on("click", (event) => {
         const el = todos[i];
         if (el.id == itemID) {
             idToDelete = i;
-            break; 
+            break;
         }
     }
     delete todos[idToDelete];
+    todos = renameTodosKeys(todos);
     showTodos();
 });// Delete ToDo
 
-
+function renameTodosKeys(todos) {
+    let temp = [];
+    let i = 0;
+    todos.forEach( todo => {
+        temp[i] = todo;
+        i++;
+    });
+    return temp;
+}
 
 function showTodos() {
     $("#list").html("");

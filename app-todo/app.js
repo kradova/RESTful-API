@@ -97,8 +97,8 @@ function addToList(item) {
 $("#form").on("submit", (event) => {
     event.preventDefault();
     let data = $("#form").serializeArray();
-    console.log(data);
-    const id = 0;
+    //console.log(data);
+    const id = getNextID();
     const title = data[0].value;
     const isDone = data[1].value;
     let newTodo = {
@@ -106,10 +106,24 @@ $("#form").on("submit", (event) => {
         title,
         isDone
     }
-    console.log(newTodo);
+    //console.log(newTodo);
+    const nextItemID = todos.length;
+    todos[nextItemID] = newTodo;
+    addToList(newTodo);
+    console.log(todos);
+    $("form")[0].reset();
 });
 
+function getNextID() {
+    let maxID = 0;
+    todos.forEach(todo => {
+        if (maxID < todo.id) {
+            maxID = todo.id;
+        }
+    });
 
+    return maxID + 1;
+}
 
 
 

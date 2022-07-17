@@ -59,17 +59,17 @@ function showTodos() {
 
 function getData() {
     const urlTodos = "http://localhost:3000/todos";
-    const method ="GET";
+    const method = "GET";
     $.ajax({
-        url: urlTodos, 
+        url: urlTodos,
         method: method,
         dataType: "json"
     }).done(function (response) {
         //console.log(response);
         todos = response;
         if (todos.length > 0) {
-            showTodos();  
-        }        
+            showTodos();
+        }
     });
     return [];
 }
@@ -94,6 +94,10 @@ $("#form").on("submit", (event) => {
     //console.log(data);
     const id = getNextID();
     const title = data[0].value;
+    if (title.length < 2) {
+        alert("Название не может быть меньше двух букв");
+        return;
+    }
     const isDone = data[1].value;
     let newTodo = {
         id,

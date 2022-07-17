@@ -107,6 +107,18 @@ $("#form").on("submit", (event) => {
     //console.log(newTodo);
     const nextItemID = todos.length;
     todos[nextItemID] = newTodo;
+
+    const urlTodos = "http://localhost:3000/todos";
+    const method = "POST";
+    $.ajax({
+        url: urlTodos,
+        method: method,
+        data: newTodo,
+        dataType: "json"
+    }).done(function (response) {
+        console.log(response);
+    });
+
     addToList(newTodo);
     console.log(todos);
     $("form")[0].reset();

@@ -103,7 +103,6 @@ $("#form").on("submit", (event) => {
         1: {name: 'isDone', value: 'false'}
     */
     //console.log(data); return;
-    /**@TODO send data without ID */
     const id = getNextID();
     const title = data[0].value;
     if (title.length < 2) {

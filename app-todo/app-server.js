@@ -49,6 +49,8 @@ function renameTodosKeys(todos) {
     return temp;
 }
 
+/** add all items in todos array  to the DOM in the browser 
+===========================================================*/
 function showTodos() {
     $("#list").html("");
     todos.forEach(item => {
@@ -74,6 +76,8 @@ function getData() {
     return [];
 }
 
+/** create html for one todo and add it to the DOM in the browser 
+=================================================================*/
 function addToList(item) {
     //console.log(item);
     let list = $("#list");
@@ -86,49 +90,61 @@ function addToList(item) {
     }
     //console.log(newTodo);
     list.append(newTodo);
-}// addToList
+}// addToList 
 
+
+/** creating a NEW Todo
+ ======================*/
 $("#form").on("submit", (event) => {
-    event.preventDefault();
-    let data = $("#form").serializeArray();
-    //console.log(data);
+    event.preventDefault(); // прерываем отправку данных самой формой(поведение формы по умолчанию)
+    let data = $("#form").serializeArray(); // получаем все данные из формы в виде массива(name: value)
+    /*
+        0: {name: 'title', value: 'T3'}
+        1: {name: 'isDone', value: 'false'}
+    */
+    //console.log(data); return;
+    /**@TODO send data without ID */
     const id = getNextID();
     const title = data[0].value;
     if (title.length < 2) {
         alert("Название не может быть меньше двух букв");
         return;
-    }
+    } // валидация данных
     const isDone = data[1].value;
+    // формируем данные для отправки на сервер для создания НОВОГО ToDo
     let newTodo = {
         id,
         title,
         isDone
     }
-    //console.log(newTodo);
-    const nextItemID = todos.length;
-    todos[nextItemID] = newTodo;
+    //console.log(newTodo, todos);return;
 
     const urlTodos = "http://localhost:3000/todos";
     const method = "POST";
+    // отправляем асинхронно данные на сервер(делаем запрос[request] методом POST)
     $.ajax({
         url: urlTodos,
         method: method,
         data: newTodo,
         dataType: "json"
     }).done(function (response) {
-        console.log(response);
+        //получение данных от сервера в случае удачного запроса 
+        newTodo = response; //после добавления нового todo возвращает созлданный объект с новым ID
+        console.log(newTodo);
+        todos.push(newTodo);// добавляем новый элемент в конец массива todos
+        console.log(todos);
+        showTodos();// выводим массив todos в браузер в виде HTML
     });
 
-    addToList(newTodo);
-    console.log(todos);
-    $("form")[0].reset();
+    $("form")[0].reset(); // очищаем форму после отправки данных
 });
 
 function getNextID() {
     let maxID = 0;
     todos.forEach(todo => {
-        if (maxID < todo.id) {
-            maxID = todo.id;
+        let id = parseInt(todo.id);
+        if (maxID < id) {
+            maxID = id;
         }
     });
 

@@ -4,10 +4,13 @@ getData();
 
 /** Change isDone
 *=================*/
-$(".form-check-input").on("change", (event) => {
+$(".form-check-input").on("click", (event) => {
     let element = event.target;
     let itemID = $(element).data("id");
-
+    
+    const url = "http://localhost:3000/todos/" + itemID;
+    const method = "PUT";
+    let newIsDone;
     todos.forEach(item => {
         if (itemID == item.id) {
             if (item.isDone === "true") {
@@ -16,7 +19,20 @@ $(".form-check-input").on("change", (event) => {
                 item.isDone = "true";
                 //$(element).parrent.css('text-decoration', 'line-through');
             }
+            newIsDone = item.isDone;
         }
+    });
+    let newData = {
+        isDone: newIsDone
+    };
+    $.ajax({
+        url: urlTodos,
+        method: method,
+        data: newData,
+        dataType: "json"
+    }).done(function (response) {
+        console.log("Result after changing isDone:\n", response);
+        getData();
     });
     //console.log(todos);
 });// Change isDone

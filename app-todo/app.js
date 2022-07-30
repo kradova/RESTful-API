@@ -19,11 +19,61 @@ const DB = `[
 let todos = getData();
 //console.log(todos);
 
+showTodos();
 
-todos.forEach(item => {
-    addToList(item);
-});
+/** Change isDone
+*=================*/
+$(".form-check-input").on("change", (event) => {
+    let element = event.target;
+    let itemID = $(element).data("id");
 
+    todos.forEach(item => {
+        if (itemID == item.id) {
+            if (item.isDone === "true") {
+                item.isDone = "false";
+            } else {
+                item.isDone = "true";
+                //$(element).parrent.css('text-decoration', 'line-through');
+            }
+        }
+    });
+    //console.log(todos);
+});// Change isDone
+
+/** Delete ToDo
+ *==============*/
+$("#list").on("click", ".js-btn-delete", (event) => {
+    let element = event.target;
+    let itemID = $(element).data("delete-id");
+    let idToDelete = -1;
+    for (let i = 0; i < todos.length; i++) {
+        const el = todos[i];
+        if (el.id == itemID) {
+            idToDelete = i;
+            break;
+        }
+    }
+    delete todos[idToDelete];
+    todos = renameTodosKeys(todos);
+    showTodos();
+});// Delete ToDo
+
+function renameTodosKeys(todos) {
+    let temp = [];
+    let i = 0;
+    todos.forEach(todo => {
+        temp[i] = todo;
+        i++;
+    });
+    return temp;
+}
+
+function showTodos() {
+    $("#list").html("");
+    todos.forEach(item => {
+        addToList(item);
+    });
+}
 
 
 function getData() {
@@ -44,30 +94,38 @@ function addToList(item) {
     list.append(newTodo);
 }// addToList
 
-function deleteItem(itemID) {
+$("#form").on("submit", (event) => {
+    event.preventDefault();
+    let data = $("#form").serializeArray();
+    //console.log(data);
+    const id = getNextID();
+    const title = data[0].value;
+    const isDone = data[1].value;
+    let newTodo = {
+        id,
+        title,
+        isDone
+    }
+    //console.log(newTodo);
+    const nextItemID = todos.length;
+    todos[nextItemID] = newTodo;
+    addToList(newTodo);
+    console.log(todos);
+    $("form")[0].reset();
+});
 
-}
-
-function changeIsDone(itemID) {
-
-}
-
-$(".form-check-input").on("change", (event) => {
-    let element = event.target;
-    let itemID = $(element).data("id");
-
-    todos.forEach(item => {
-        if (itemID == item.id) {
-            if (item.isDone === "true") {
-                item.isDone = "false";
-            } else {
-                item.isDone = "true";
-                //$(element).parrent.css('text-decoration', 'line-through');
-            }
+function getNextID() {
+    let maxID = 0;
+    todos.forEach(todo => {
+        if (maxID < todo.id) {
+            maxID = todo.id;
         }
     });
 
+    return maxID + 1;
+}
 
 
-    console.log(todos);
-});
+
+
+

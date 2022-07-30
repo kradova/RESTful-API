@@ -1,6 +1,10 @@
 # RESTful-API
 ## Study RESTful API
-
+CRUD
+C - Create(POST)
+R - Read(GET)
+U - Update(PUT)
+D - Delete(DELETE)
 
 ### Install JSON Server
 

@@ -17,7 +17,7 @@
     <div id="main" class="container">
         <div class="wrapper col-md-6">
             <h1>APP TODO</h1>
-            <form class="row g-3" action="" method="get">
+            <form class="row g-3" id="form" name="form" action="" method="get">
                 <div class="col-4">
                     <input type="text" name="title" class="form-control" id="add_todo" placeholder="Add New TODO">
                 </div>
@@ -30,6 +30,7 @@
             <hr>
 
             <div id="list">
+                <h1>Load...</h1>
             </div><!-- #list -->
 
         </div><!-- .wrapper .col-md-6-->
@@ -42,7 +43,7 @@
                 {title}
             </div>
             <div class="col-3">
-                <button type="button" class="btn btn-sm btn-danger" data-delete-id="{id}">Delete</button>
+                <button type="button" class="btn btn-sm btn-danger js-btn-delete" data-delete-id="{id}">Delete</button>
             </div>
             <hr>
         </div><!-- .item -->
@@ -56,7 +57,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
         integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
         crossorigin="anonymous"></script>
-    <script src="app.js"></script>
+    <script src="app-server.js"></script>
 </body>
 
 </html>

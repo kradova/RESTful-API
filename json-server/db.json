@@ -8,7 +8,7 @@
     {
       "id": "2",
       "title": "ToDo2",
-      "isDone": "false"
+      "isDone": "true"
     },
     {
       "id": "3",
@@ -23,7 +23,7 @@
     {
       "id": "5",
       "title": "ToDo5",
-      "isDone": "false"
+      "isDone": "true"
     },
     {
       "id": "6",

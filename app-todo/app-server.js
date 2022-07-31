@@ -6,9 +6,9 @@ getData();
 *=================*/
 $("#list").on("change", ".form-check-input", (event) => {
     let element = event.target;
-    let itemID = $(element).data("id");
+    let itemID = $(element).data("id");//получаем id того элемента на котором произошло изменение
     
-    const urlTodos = "http://localhost:3000/todos/" + itemID;
+    const urlTodos = "http://localhost:3000/todos/" + itemID;//формирование url для отправки данных на сервер(нужный url предоставляется разработчиками сервера)
     const method = "PUT";
     let itemToUpdate = {};
     todos.forEach(item => {
@@ -21,7 +21,7 @@ $("#list").on("change", ".form-check-input", (event) => {
             }
             itemToUpdate = item;
         }
-    });
+    });//перебираем и сравниваем id, когда находим тот на котором было нажатие,меняем его isDone
     let newData = itemToUpdate;
     $.ajax({
         url: urlTodos,
@@ -29,8 +29,8 @@ $("#list").on("change", ".form-check-input", (event) => {
         data: newData,
         dataType: "json"
     }).done(function (response) {
-        console.log("Result after changing isDone:\n", response);
-        getData();
+        console.log("Result after changing isDone:\n", response);//получение измененных данных из сервера
+        getData();//получение всех todo с сервера(с новыми изменениями) и отрисовка их в браузере
     });
     //console.log(todos);
 });// Change isDone
@@ -38,30 +38,22 @@ $("#list").on("change", ".form-check-input", (event) => {
 /** Delete ToDo
  *==============*/
 $("#list").on("click", ".js-btn-delete", (event) => {
-    let element = event.target;
-    let itemID = $(element).data("delete-id");
-    let idToDelete = -1;
-    for (let i = 0; i < todos.length; i++) {
-        const el = todos[i];
-        if (el.id == itemID) {
-            idToDelete = i;
-            break;
-        }
-    }
-    delete todos[idToDelete];
-    todos = renameTodosKeys(todos);
-    showTodos();
+    let element = event.target;//содержит элемент браузера на котором произошло событие
+    let itemID = $(element).data("delete-id");//полчение id
+    const url = "http://localhost:3000/todos/" + itemID;//формирование url для отправки данных на сервер(нужный url предоставляется разработчиками сервера)
+    const method = "DELETE";
+
+    $.ajax({
+        url,
+        method,
+        dataType: "json"
+    }).done(function (response) {
+        console.log("Result after deletting:\n", response);//получение измененных данных из сервера
+        getData();//получение всех todo с сервера(с новыми изменениями) и отрисовка их в браузере
+    });
+
 });// Delete ToDo
 
-function renameTodosKeys(todos) {
-    let temp = [];
-    let i = 0;
-    todos.forEach(todo => {
-        temp[i] = todo;
-        i++;
-    });
-    return temp;
-}
 
 /** add all items in todos array  to the DOM in the browser 
 ===========================================================*/
